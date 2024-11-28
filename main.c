@@ -5,7 +5,7 @@
 
 #define VER0 0
 #define VER1 5
-aaaa
+aaaaffffff
 
 void verInfo();
 void help();
