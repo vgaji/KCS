@@ -1,0 +1,51 @@
+HELP SCREEN
+------------------------------------------------------>
+KCS version 0.1
+
+Usage: KCS [options] [input file] [output file]
+
+-M	make wavefile
+-T	sine wave
+-Ln	leader (sec)
+-Bn	1=600, 2=1200
+-S	1 stop bit
+
+
+Default: 300 baud, 8 data bits,
+	2 stop bits, square wave
+
+Conversion utility for Kansas City Standard
+tapes. Input/output in an unsigned 8-bit
+mono PCM raw wavefile recorded at 22,050
+samples per second.
+------------------------------------------------------>
+
+
+PROCESSING
+------------------------------------------------------>
+KCS version 0.1
+
+Input file:	[filename]
+Output file:	[filename]
+
+Processing...
+
+[number] bytes processed.
+Done! 
+------------------------------------------------------>
+
+
+INVALID OPTION
+------------------------------------------------------>xxx
+KCS version 0.1
+
+Invalid option!
+------------------------------------------------------>xxx
+
+
+FILE NOT FOUND
+------------------------------------------------------>xxx
+KCS version 0.1
+
+File [infilename] not found!
+------------------------------------------------------>xxx

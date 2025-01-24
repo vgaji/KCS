@@ -1,2 +1,5 @@
-unsigned char *decToBin(unsigned char dec);
-unsigned char binToDec(unsigned char *bin);
+#include <stdbool.h>
+
+
+bool *decToBin(unsigned char dec);
+unsigned char binToDec(bool *bin);

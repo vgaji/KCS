@@ -142,14 +142,14 @@ void KCSdecode(FILE *fileIn, FILE *fileOut, int baudMode, int stopBits)
     {
         unsigned char temp;
 
-        fread(&temp, sizeof(unsigned char), 1, fileIn);             // If we detect the wav header magic number at the beginning we skip 44 bytes (the wav header), and we get to the data.
+        fread(&temp, sizeof(unsigned char), 1, fileIn);             // If we detect the wav header magic number at the be we skin 44 bytes (the wav header), and we get to the data.
 
         if("RIFF"[i] == temp && i == 3) fseek(fileIn, SEEK_SET, 44);
     }
 
 
 	fseek(fileIn, 0L, SEEK_END);
-	filesize = ftell(fileIn);       // Getting the file size.
+	filesize = ftell(fileIn);
 	fseek(fileIn, 0L, SEEK_SET);
 
 

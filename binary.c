@@ -1,41 +1,24 @@
 #include <stdlib.h>
-#include <math.h>
+#include <stdbool.h>
 
 
-unsigned char *decToBin(unsigned char dec)
+bool *decToBin(unsigned char dec)
 {
-	int i, j, temp;
-	unsigned char *bin;
+	bool *bin = (bool*)malloc(sizeof(bool) * 8);
 	
-	temp = 0;
-	bin = (char*)malloc(8);
-	
-	for (i = 7; i >= 0; --i)
-	{
-		j = dec >> i;
-		
-		if (j & 1)
-		  *(bin + temp) = 1;
-		else
-		  *(bin + temp) = 0;
-		  
-		++temp;
-	}
+	for (int i = 7; i >= 0; --i)
+		bin[7 - i] = (dec >> i) & 1;
 	
 	return bin;
 }
 
-unsigned char binToDec(unsigned char *bin)
+unsigned char binToDec(bool *bin)
 {
-	int i, dec;
+	unsigned char dec = 0;
 	
-	dec = 0;
-	
-	for(i = 7; i >= 0; --i)
-	{
-		if(*(bin + i) == 1)
-		dec += pow(2, 8 - i - 1);
-	}
+	for (int i = 0; i < 8; ++i)
+		if (bin[i])
+			dec |= (1 << (7 - i));
 	
 	return dec;
 }

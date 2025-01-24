@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<pagescount>
+	<html_total>6</html_total>
+	<html_done>6</html_done>
+	<images>10</images>
+	<script/>
+	<css/>
+	<pdf/>
+	<documents/>
+	<excel/>
+	<powerpoint/>
+	<flash/>
+	<audios/>
+	<videos/>
+	<xml/>
+	<json/>
+	<txt/>
+	<autocad/>
+	<fonts/>
+	<scraping_reload>1</scraping_reload>
+	<is_pretty_url>false</is_pretty_url>
+	<is_ebn>false</is_ebn>
+	<email>veljkogajic123@gmail.com</email>
+	<theme_name>WmdTheme172607</theme_name>
+	<server_url_front_page>https://www.waybackmachinedownloader.com/scraping/files/demo/homepages.hetnet.nl_veljkogajic123_gmail.com_akiiw2s09h/</server_url_front_page>
+	<no_www_url>homepages.hetnet.nl</no_www_url>
+	<hosted_domain/>
+	<original_archive_url>https://web.archive.org/web/20000302085432/http://www.homepages.hetnet.nl/~wouterras/atom.htm</original_archive_url>
+	<final_archive_url>https://web.archive.org/web/20000302085432/http://www.homepages.hetnet.nl/~wouterras%2Fatom.htm</final_archive_url>
+	<front_page_code_date>20000302085432</front_page_code_date>
+	<total_urls_from_api/>
+	<max_reached_live>false</max_reached_live>
+	<scrape_other_captures>false</scrape_other_captures>
+	<total_size>108</total_size>
+</pagescount>

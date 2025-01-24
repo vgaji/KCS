@@ -1,0 +1,196 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Getting Linux to run together with Windows on a FAT32 partition</title>
+	<link rel="canonical" href="http://homepages.hetnet.nl/_wouterras/linux/index.html" />
+  <meta name="keywords" content="linux, windows, fat32, hard drive installation,
+  ppp, loadlin, lilo, cable modem, kabelmodem">
+</head>
+<body>
+<a name="top">
+<h1>Getting Linux to run together with Windows on a FAT32 partition</h1>
+This page contains some problems ...and solutions to those problems, that I encountered during
+and after the installation of RedHat Linux on my system.<br>
+First of all, let me state that I'm not a <i>Linux wizard</i>. I just made this page, hoping that
+it can be of some use to those who have simular problems.
+<br><br>
+When reading, you'll find that there's no particular structure in this page.
+It's just a summary several problems and their solutions:<br>
+<ol>
+<a href="#splithd"><li>Splitting your partition without destroying the data on it</a>
+<a href="#RPMSproblem"><li>"Can't locate the RPMS directory"...</a>
+<a href="#loadlin"><li>LOADLIN or LILO?</a>
+<a href="#modules"><li>"Can't locate modules"...</a>
+<a href="#ppp"><li>Creating a ppp connection</a>
+<a href="#poweroff"><li>Automatic power-off on shutdown / recompiling the kernel</a>
+<a href="#modules2"><li>Can't locate modules net-pf-4 and net-pf-5,
+ppp-compress-21, ppp-compress-24 and ppp-compress-26</a>
+</ol><br><br>
+<a name="splithd">
+<h3>Splitting your partition without destroying the data on it</h3>
+I downloaded <b>RedHat 5.2</b> from an FTP site, and ran the hard drive install, although I now think
+I could have saved myself a lot of trouble by just buying the damned CD-ROM. Anyway, the first
+problem I ran into after having collected all the files on my harddrive, was that I needed to
+split up the Windows partition on my C: drive. An easy way to do this, without destroying data
+on the existing Windows partition(s) is to use FIPS, available on lots of FTP sites.
+<br><br><a href="#top">Top of page.</a><br><br><br>
+<a name="RPMSproblem">
+<h3>Can't locate the RPMS directory...</h3>
+The second problem was that RedHat install wasn't able to locate the RPMS directory... A very
+frustrating problem this was, because I could see it <b>was</b> there! I think the problem lies 
+in the fact that in the FAT32 system Linux reads "RPMS" as "rpms". It must be altered from 
+the Linux command prompt. The solution to this problem is as follows (I found it somewhere on
+the www, unfortunately I don't know where anymore):<br>
+<ol>
+<li>Download the <a href="mv.zip">mv</a> program and unpack it (it's a zip archive) and store it 
+in the same partition as the rest of your Linux installation files. Hereafter it is assumed to 
+be in the RedHat directory (where the RPMS subdirectory also is).
+<li>Start Install and make note of the Linux device associated with the install partition (e.g.
+  /dev/hdb1).
+<li>Continue until the message "error opening directory" appears. Now hit <b>&#60;Alt+F2&#62;</b> to get to   the Linux command prompt.
+<li>Type <b><tt>ls /tmp/hdimage</tt></b>. A listing of the files on the FAT installation partition should
+  appear.
+<li>Type <b><tt>umount /tmp/hdimage</tt></b> to un-mount the partition.
+<li>Type <b><tt>mount -t vfat {devicename} /tmp/hdimage</tt></b> to re-mount the partition. {devicename} is
+  the one as found above (e.g. /dev/hdb1). Now there is read-write access to the partition.
+<li>Type <b><tt>cd /tmp/hdimage/RedHat</tt></b>. If RedHat is not in the root of that partition, you need
+  to insert the subdirectories here.
+<li>Now type <b><tt>ls</tt></b> to be sure you're in the right directory. You should see the rpms directory,
+  the mv file among others.
+<li>Type <b><tt>./mv rpms temp</tt></b>. You may also choose another filename than "temp".
+<li>Now type <b><tt>./mv temp RPMS</tt></b>. Please note the uppercase.
+<li>Go to the root directory by typing <b><tt>cd /</tt></b>
+<li>Type <b><tt>umount /tmp/hdimage</tt></b>.
+<li>Finally, hit <b>&#60;Alt+F1&#62;</b> to return to the installation screen. Hit the OK button and then retry
+the operation. The installation should now proceed correctly.
+</ol><a href="#top">Top of page.</a><br><br><br>
+<a name="loadlin">
+<h3>LOADLIN or LILO?</h3>
+When the installation is almost done, you're asked where you would like to store the Linux Loader (LILO),
+either in the master boot sector or in the /boot partition. Because of the trouble I had before
+with the FAT32 partition, and the fact that Disk Druid did not recognize FAT32 at all, I decided to skip
+the installation of LILO, and use LOADLIN. I don't know if my fears of data loss in the FAT32 partition
+were justified or not... now I don't care anymore, because I think using LOADLIN is pretty comfortable.
+Here's what I did:<br>
+<ol>
+<li>I created a directory on the C: drive, called LINUX, and copied the files LOADLIN.EXE and the zImages
+(I have two, 2.0.36 and 2.2.5 - I named them 2_0_36 and 2_2_5) to it.
+<li>Then I inserted the following lines into my <b>config.sys</b> file at the top:
+  <blockquote><tt>
+  [menu]<br>
+  menuitem=Win95,Windows 95<br>
+  menuitem=Linux2036,Linux Kernel 2.0.36<br>
+  menuitem=Linux225,Linux Kernel 2.2.5<br>
+  menucolor=15,1<br>
+  menudefault=Linux225,7<br>
+  <br>
+  [Linux2036]<br>
+  shell=C:\LINUX\LOADLIN.EXE C:\LINUX\2_0_36 mem=xxM root=/dev/hdaY ro<br>
+  <br>
+  [Linux225]<br>
+  shell=C:\LINUX\LOADLIN.EXE C:\LINUX\2_2_5 mem=xxM root=/dev/hdaY ro<br>
+  <br>
+  [Win95]<br>
+  ...here the rest of config.sys...
+  </tt></blockquote>
+  <b>Please note that the parameters (mem, root) depend on your own configuration.</b><br>
+  The root-parameter (/dev/hdaY) points to the partition where the root (/) is located. In my
+  case this is /dev/hda6.<br>
+  The parameter mem=xxM is there, because on my computer Linux limited the RAM size to about
+  14M, unless the memory size was explicitedly mentioned! I have 96M of RAM, so in
+  my case I entered mem=96M
+<li>When turning on my computer, a start-up menu is shown. If a choice has not been made within 7
+  seconds, Linux is booted with kernel version 2.2.5.
+</ol><a href="#top">Top of page.</a><br><br><br>
+<a name="modules">
+<h3>Next problem: Can't locate modules...</h3>
+The next problem I ran into, and which took me about a whole week of frustration to solve, was
+that modules could not be found, which meant that I could not make a PPP connection (I got the message "This system
+lacks kernel support for PPP. This could be because the PPP kernel module is not loaded, or
+because the kernel is not configured for PPP."<br>
+After reinstalling the system about four times, changing about every file, I finally found the
+solution, which was quite simple really, and completely the result of my own stupidity: The VMLINUZ
+image (loaded by LOADLIN) that I downloaded from the same site that I downloaded the complete RedHat
+package from, turned out to be different from the one that is installed in the /boot partition. 
+All I had to do was copy that file (i.e. vmlinuz-2.0.36-0.7 - or whatever version you have) to 
+C:\LINUX (either directly if you manage to get vfat running or via a floppy) and overwrite the old VMLINUZ file.
+From then on the system booted ok, and all modules were loaded ...and without 'unresolved symbols'. :-)
+<br><br><a href="#top">Top of page.</a><br><br><br>
+<a name="ppp">
+<h3>Another problem: Creating a ppp connection</h3>
+This problem is about establishing a connection to my local ISP ...dus in 't Nederlands maar:<br>
+Vrij lang kon ik fijn met Linux spelen, maar geen verbinding maken met Casema met behulp van het
+kabelmodem. Ik had ppp geprepareerd zoals staat op <a href="http://www.casema.net/~cvgennip/kabelmodem/">
+http://www.casema.net/~cvgennip/kabelmodem/</a>, maar toch kreeg ik telkens de melding:
+"PAP-authentication failed... STOP-CODE 05-00".<br>
+Dat het me uiteindelijk toch gelukt is om verbinding te leggen is meer geluk dan wijsheid. Ik heb
+nu telefoonnummer <b>3</b> gekozen en <i>PAP-authentication</i> <b>uit</b> gezet. Je ziet dan in het 
+<i>Edit PPP interface</i> scherm, bij het expect-send gedeelte iets als:
+<blockquote><tt>ogin: MIJNNAAM<br>
+ord: MIJNWACHTWOORD<br>
+</tt></blockquote>
+En dat werkt prima.
+<br><br><a href="#top">Top of page.</a><br><br><br>
+<a name="poweroff">
+<h3>Automatic power-off on shutdown / recompiling the kernel</h3>
+On my computer, it is possible to automatically turn off power on shutdown. This
+happens whenever I shut down <nobr>Windows 95</nobr>, but it didn't happen when shutting down Linux.<br>
+If you have the same problem, here's what you should do: Edit the file <b>/etc/rc.d/init.d/halt</b>. There is a
+line in there, saying something like <tt>command="halt"</tt>. Change it so that it
+reads <tt>command="halt -p"</tt>.<br>
+On my computer this had no effect though. It turned out that my Kernel (2.0.36) 
+did not support this feature. So I had to upgrade and recompile it. Of course,
+it's all explained in the HOWTO's, but here's a summary of how to do it:<br>
+<ol><li>Download the kernel you'd like to have from
+<a href="http://ftp://ftp.funet.fi/pub/Linux/PEOPLE/Linus/">ftp://ftp.funet.fi/pub/Linux/PEOPLE/Linus/</a>
+or from a mirror site. The Kernel files have the format <i>Linux-x.y.z.tar.gz</i>, where
+x.y.z is the version number. If you like, you can check your current version by typing <tt>uname -r</tt>.
+<li>Login as root, and change to <b>/usr/src</b>
+<li>Unpack the kernel source with <tt>tar zxpvf linux-x.y.z.tar.gz</tt>
+<li>Change to <b>linux</b> and read the README file, especially the section
+INSTALLING about the necessary symlinks and the removal of stale .o files.
+<li>Now, enter <tt>make config</tt>, or a lot nicer - if you have XWindows
+installed: <tt>make xconfig</tt> and select all things you want to have compiled
+into your kernel or as a module.
+<li>Enter <tt>make dep</tt>
+<li>Enter <tt>make clean</tt>. When recompiling, do not forget this step.
+<li>Enter <tt>make zImage</tt>, or <tt>make bzImage</tt>, or whatever setup
+you want to have. The image and other files will be stored in the <b>arch/i386/boot</b>
+directory.<br>
+I myself use LoadLin from a Win95 startup menu, so all I have to do now, is copy
+the zImage to the right directory on my C: hard disk. It's wise to keep a backup
+of your original zImage in case something goes wrong (e.g. you forgot to compile
+the ext2 filesystem into your kernel). You could, for instance,
+also add a menu item to the startup menu, one booting <nobr><i>Linux Kernel x.y.z</i></nobr> 
+and another booting <nobr><i>Linux Kernel q.r.s</i></nobr>.
+<li>Now all that's left is the compilation and installation of the modules:
+Enter <tt>make modules</tt>
+<li>Enter: <tt>make modules_install</tt>
+</ol>
+And your new kernel is ready for use!
+<br><br><a href="#top">Top of page.</a><br><br><br>
+<a name="modules2">
+<h3>Can't locate modules net-pf-4 and net-pf-5, ppp-compress-21,
+ppp-compress-24 and ppp-compress-26</h3>
+After having recompiled my kernel, I noticed that on boot some modules
+couldn't be found, namely net-pf-4 and net-pf-5. I searched usenet and found
+that net-pf-4 is IPX and net-pf-5 is Appletalk, which I both did not include
+in my new kernel, because I don't need them. In order to remove the error
+message, I added the following lines to <b>/etc/conf.modules</b>:<br>
+<blockquote><tt>alias net-pf-4 off<br>alias net-pf-5 off</tt></blockquote>
+This way, the system is told not to look for those modules.<br><br>
+When establishing a ppp-connection, there seemed to be no problem, but looking
+at <b>/var/log/messages</b> I noticed that the modules
+<nobr>ppp-compress-21,</nobr> <nobr>ppp-compress-24</nobr> and
+<nobr>ppp-compress-26</nobr> could not be located, and I could indeed see that
+there were not compiled in <b>/lib/modules/2.2.5/net</b>. However, again
+searching usenet, I found that these are aliases and also needed to be entered
+in <b>/etc/conf.modules</b>:<br>
+<blockquote><tt>alias ppp-compress-21 bsd_comp<br>alias ppp-compress-24
+ppp_deflate<br>alias ppp-compress-26 slhc</tt></blockquote>
+Now reboot and the problem has been solved.
+<br><br><a href="#top">Top of page.</a><br><br><br> 
+<hr>
+Send comments/questions to <a href="mailto:wouterras@hotmail.com"><i>Wouter Ras</i></a>.
+</body>
+</html>

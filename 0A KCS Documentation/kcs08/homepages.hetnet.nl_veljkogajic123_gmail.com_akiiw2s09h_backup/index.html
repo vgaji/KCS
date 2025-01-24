@@ -1,0 +1,301 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Acorn Atom Emulator</title>
+	<link rel="canonical" href="http://homepages.hetnet.nl" />
+  <meta name="description" content="Acorn Atom Emulator v1.33 for MS-DOS">
+  <meta name="keywords" content="acorn atom, emulator, emulators, 6502, 8271 fdc">
+</head>
+<body background="http://www.homepages.hetnet.nl/~wouterras/pictures/acorn.gif" text="#000000" link="#FFFF80" alink="#FFFF80" vlink="#800080" bgcolor="#008800" width="100%">
+<font size="3" face="verdana, bangle, arial">
+<hr>
+<center>
+<font color="#C00000"><h1>Acorn Atom Emulator v1.33</h1></font>
+</center>
+<hr>
+<h2>Introduction</h2>
+The Acorn Atom... A small, but very flexible British home computer, released in
+1979. With only 12 kB ROM and 12 kB RAM as a standard, programs could be made
+pretty easily, as long as they were not too complicated. However, thanks to
+quite a number of (EP)ROMs and the Atom's flexible structure, the Atom could
+be extended with a wide variety of possibilities.<br>
+With the Acorn Atom emulator, it is now possible to run almost all the Atom
+programs on your PC.
+<hr>
+<h2>The Emulator</h2>
+The emulator pack is a ZIP compressed archive, containing the following files:
+<table>
+  <tr><td><font size="3" face="verdana, bangle, arial">Atom.Exe</td><td>
+    <font size="3" face="verdana, bangle, arial">- The emulator,</td></tr>
+  <tr><td><font size="3" face="verdana, bangle, arial">AtomCom.Exe</td><td>
+    <font size="3" face="verdana, bangle, arial">- A utility to transfer data
+    from and to tape or an original Atom,</td></tr>
+  <tr><td><font size="3" face="verdana, bangle, arial">AtomTape.Exe</td><td>
+    <font size="3" face="verdana, bangle, arial">- A utility to retrieve files
+    from tape or an original Atom,</td></tr>
+  <tr><td><font size="3" face="verdana, bangle, arial">TapeCat.Exe</td><td>
+    <font size="3" face="verdana, bangle, arial">- A utility to index original
+    Atom tapes,</td></tr>
+  <tr><td><font size="3" face="verdana, bangle, arial">TapeDir.Exe</td><td>
+    <font size="3" face="verdana, bangle, arial">- A utility that shows the
+    contents of a .Tap file,</td></tr>
+  <tr><td><font size="3" face="verdana, bangle, arial">ReadMe.1st</td><td>
+    <font size="3" face="verdana, bangle, arial">- A text file containing the
+    latest information,</td></tr>
+  <tr><td><font size="3" face="verdana, bangle, arial">ExtROM.Tap</td><td>
+    <font size="3" face="verdana, bangle, arial">- A tape image containing a
+    number of extension toolboxes,</td></tr>
+  <tr><td><font size="3" face="verdana, bangle, arial">Example.Tap</td><td>
+    <font size="3" face="verdana, bangle, arial">- A tape image with a few
+    programs that make use of the new toolboxes,</td></tr>
+  <tr><td><font size="3" face="verdana, bangle, arial">*.Doc</td><td>
+    <font size="3" face="verdana, bangle, arial">- Documentation.</td></tr>
+</table>
+<hr>
+<h2>Pictures</h2>
+Here are two action shots taken from the emulator. It supports sound through
+the PC-speaker and through a SoundBlaster or compatible soundcard. The emulator
+is 100% assembler, and therefore a 486 DX 40 MHz is already enough to run
+emulation at original speed, with full screen updates. The picture on the left
+was taken from Plane & Tank Battle (programmed 20th - 22nd march 1998 as an
+excuse for not having to learn about spalling forces on steel fibre reinforced
+concrete). The picture on the right shows a snapshot from the game 'Snapper'.
+<br><br>
+<center>
+  <img src="_wouterras/pictures/ptbattle.gif" border="1" width="320" height="200">
+  <img src="_wouterras/pictures/snapper.gif" border="1" width="320" height="200">
+</center>
+<hr>
+<h2>Atom files</h2>
+In the past few months, I've done nothing with the emulator anymore. And I
+don't think there will be a lot of Atom software still out there that's not
+already on this page. However, if anyone has more Atom programs yet, I'd love
+to see them. Do send them to me, my address is <nobr><font color="#FFFFFF">
+wouterras@hotmail.com</font></nobr>. I'll put them on this page as well, so
+that all Atom fans can enjoy them.<br> Of course, comments, questions, remarks
+etc. about the emulator are more than welcome as well.
+<hr>
+<h2>Version history</h2>
+<u>Upgrade v1.0 --&gt; v1.1:</u><br>
+On first sight nothing is new from version 1.0. However, emulator v1.1 runs in
+VGA mode 12h in stead of 13h, because on some graphic adapters a stable screen
+could not be achieved. I hope this solves the problem.
+<br><br>
+<u>Upgrade v1.1 --&gt; v1.2:</u><br>
+The following changes have been made:<br>
+<ul>
+<li>Data can be loaded in memory range A000h-AFFFh. Other ROM areas cannot be
+overwritten anymore.
+<li>A bugfix: The AND absolute command now also does I/O operations.
+<li>Another bugfix: Sometimes files misteriously disappeared and reappeared or
+could not be imported. Simply by resetting the internal error flag (used for
+checking I/O operations by Turbo Pascal) prior to opening files, this problem
+now seems to have disappeared.
+<li>Yet another bugfix: Loading of the extension ROM, specified in the
+.INI-file didn't work. It should be OK now.
+<li>Hotkeys changed.
+</ul>
+<br>
+<u>Upgrade v1.2 --&gt; v1.21:</u><br>
+<ul>
+<li>Partial implementation of undocumented PPIA port D at B003h.
+<li>Optional disassembly of illegal opcodes in desktop monitor.
+</ul>
+<br>
+<u>Upgrade v1.21 --&gt; v1.22:</u><br>
+<ul>
+<li>Error in v1.21 fixed: Memory 0000h-9FFFh RAM and C000h-FFFFh protected
+against overwriting by loading.
+<li>On some computers the monitor would go into <i>Stand-by</i> mode as
+soon as the emulator was started. With help from Jens-Vagner Andersen of
+Denmark, this problem could be solved.
+</ul>
+<br>
+<u>Upgrade v1.22 --&gt; v1.30:</u><br>
+<ul>
+<li>*CAT command ROM-trapped.
+<li>Debugging options expanded. Up to four independent "real" breakpoints can
+be set at a time. Special keys ([F4], [F5], [F6], [F12], [Shift+F12] and
+[Ctrl+F12]) now can also be used when in debug mode.
+<li>Parallel memory boxes at A000h. Up to 8 EPROMs can be used at the same
+time. Automatic smart-switching included. Manual switching through I/O-port
+at BFFFh.<br>It is now no longer possible to overwrite the memory area at
+A000h-AFFFh by loading.
+<li>The FIN, FOUT, GET, BGET and FGET functions and the SGET, PUT, BPUT, FPUT
+and SPUT statements have been implemented.
+<li>MS-DOS shell available (Temporarily go to MS-DOS).
+<li>Output to printer implemented.
+</ul>
+<br>
+<u>Upgrade v1.30 --&gt; v1.31:</u><br>
+<ul>
+<li>Screen capture to .BMP file.
+<li>Mouse support implemented.
+<li>Floppy Disk Controller 8271 and DOS implemented.
+<li>Disk screen in emulator desktop added.
+<li>Maximum number of parallel toolboxes at A000h expanded to sixteen.
+</ul>
+<br>
+<u>Upgrade v1.31 --&gt; v1.32:</u><br>
+<ul>
+<li>Sound output through PC-speaker improved,
+<li>65C02 emulation in stead of 6502,
+<li>Seven extra 65802 instructions, one of which gives access to the second accumulator,
+<li>Boot from disk image in drive 0, by pressing [Alt+F12] simultaneously,
+<li>Alternative Floating Point ROM with 80x87 co-processor support (c) by Leendert Bijnagte.
+</ul>
+<br>
+<u>Upgrade v1.32 --&gt; v1.33:</u><br>
+<ul>
+<li>Communication capabilities expanded. The Atom's I/O ports at B400h-B7FFh have now been
+linked to the PC's I/O ports 0000h-03FFh, for communication between emulator and other
+devices and/or programs.
+</ul>
+<hr>
+<h2>Downloading</h2>
+The Acorn Atom Emulator is freeware. I have written it mainly for nostalgia
+reasons and secondly because I think the Acorn Atom just is a great product!<br>
+<br><br>
+<table border="1" <tr><td><font size="3" face="verdana, bangle, arial"><b><i>File:</i></b></td>
+<td><font size="3" face="verdana, bangle, arial"><b><i>Contents:</i></b></td><tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/atom.zip">Atom.Zip</a><br>
+<font color="#FFFFFF"><i>(14 aug 99)</i></font></td>
+  <td><font size="3" face="verdana, bangle, arial">Atom.Exe v1.33<br>
+  AtomCom.Exe v1.10<br>
+  AtomTape.Exe v1.1<br>
+  TapeCat.Exe v1.00<br>
+  Tapedir.Exe<br>
+  Atom.Doc<br>
+  AtomCom.Doc<br>
+  TapeCat.Doc<br>
+  ReadMe.1st<br>
+  ExtROM.Tap <font color="#1F1F7F">(AXR1, P-Charme, Gags v2.3, WE-ROM, A&F; Utility Kit, ComBox, Salfaa v2.6, Mouse-Dos Box v1.01, Atomic Windows v1.0)</font><br>
+  Example.Tap<br>
+  Gags.Doc<br>
+  WE-ROM.Doc<br>
+  ComBox.Doc<br>
+  Salfaa.Doc<br>
+  P-Charme.Doc<br>
+  AtomicW.Doc<br>
+  MD-Box.Doc<br>
+</tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/tape1.zip">Tape1.Zip</a><br>
+<font color="#FFFFFF"><i>(29 jan 98)</i></font></td>
+  <td><font size="3" face="verdana, bangle, arial">Applic1.Tap <font color="#1F1F7F">(AXR1 Demo, Atom Music, Eliza,
+  Shape Edit, Basic Compiler, Atom Lisp, Towers of Hanoi, Eight Queens,
+  Kl. Beest, Fourier)</font><br>
+  Games1.Tap <font color="#1F1F7F">(Attack, Babies, Backgammon, Chess,
+  Dodgems, Dogfight, Fighter, Four Row, Frogger, Galaxians, Invaders,
+  Martians, Mastermind, Minotaur, Missile Base, Rat Trap, Robots,
+  Snake, Snapper, Stargate, Star Trek, Zombie)</font><br>
+  Games2.Tap <font color="#1F1F7F">(Break Out, Co-Ord, Invade, Galgje,
+  Ski-Run, Amazing, Bone Hunt, Asteroid Belt, <nobr>E.T. Invaders,</nobr> 
+  Solitaire, Pontoon, Beetle, Yahtzee)</font><br>
+  Games1.Doc</td>
+</tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/graham.zip">Graham.Zip</a><br>
+<font color="#FFFFFF"><i>(13 dec 97)</i></font></td>
+  <td><font size="3" face="verdana, bangle, arial">Graham.Tap <font color="#1F1F7F">(Reversi, Super Othello, Dominoes,
+  Snooker, Invaders, Acorn Chess)</font></td>
+</tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/adventur.zip">Adventur.Zip</a><br>
+  <font color="#FFFFFF"><i>(28 mar 98)</i></font></td>
+  <td><font size="3" face="verdana, bangle, arial">Adventur.Tap <font color="#1F1F7F">(Dungeon, House, Intergalactic,
+  Atomia Akorny, Sphinx)</font><br>
+  Adventur.Doc<br>
+  Atomia.Doc<br>
+  Atomia.Sol</td>
+</tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/magnus.zip">Magnus.Zip</a><br>
+  <font color="#FFFFFF"><i>(19 feb 98)</i></font></td>
+  <td><font size="3" face="verdana, bangle, arial">Magnus1.Tap <font color="#1F1F7F">(Super Zombie, Masken, Star Trek +,
+  MegaLife, Condot, Eliza, Ghost Maze, Hammurabi, Hunt the Wampus,
+  Katakomb, Kong, MadLib, Scramble)</font><br>
+  Magnus2.Tap <font color="#1F1F7F">(Backgammon, Checkmate, DFC700, Diamonds, Dragon A, Dragon B, Dragon C, Lunar Lander)</font><br>
+  Magnus1.Doc<br>
+  Magnus2.Doc</td>
+</tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/steve.zip">Steve.Zip</a><br>
+<font color="#FFFFFF"><i>(29 jan 98)</i></font></td>
+  <td><font size="3" face="verdana, bangle, arial">Steve.Tap <font color="#1F1F7F">(747, Asteroids, Break Out, Chess,
+  Fruit Machine, Invader Force, Labyrinth, Nudger, Pinball)</font><br>
+  Steve.Doc</td>
+</tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/leendert.zip">Leendert.Zip</a><br>
+  <font color="#FFFFFF"><i>(29 jan 98)</i></font></td>
+  <td><font size="3" face="verdana, bangle, arial">Leendert.Tap <font color="#1F1F7F">(3d-Asteroids, 3d-Four in a Row, 3d-Maze, Astrobirds, Atomica, Awari, Ballistics, Bandit, Blitz, Break Out, Centipede, Cupball, Cylon Attack, Dammen, Drive, Early Warning, Fractal, Hexpawn, Hyperdrive, Lunar Lander, Maze Game, Minefield, Omega Mission, Piet Hein, Piramide, Planetarium, Protect, Puckman,  Rally, Reversi, Schiphol, Simon 2, Skiing, Space Battle, Space War, Swarm, Torpedo Run, Trap, Warlords, Wiggle, Zeeslag)</font><br>
+  Leendert.Doc</td>
+</tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/friso.zip">Friso.Zip</a><br>
+  <font color="#FFFFFF"><i>(1 mar 98)</i></font></td>
+<td><font size="3" face="verdana, bangle, arial">Friso.Tap <font color="#1F1F7F">(Business Game, Constellation, Demon Dungeon, Pilot, Pinball, AtomCalc, BreakOut, Lemon)</font></td>
+</tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/roland.zip">Roland.Zip</a><br>
+  <font color="#FFFFFF"><i>(6 mar 98)</i></font></td>
+<td valign="top"><font size="3" face="verdana, bangle, arial">Gokkast.Tap</td>
+</tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/menno.zip">Menno.Zip</a><br>
+  <font color="#FFFFFF"><i>(14 may 98)</i></font></td>
+<td valign="top"><font size="3" face="verdana, bangle, arial">Fruitma.Tap<br>
+Menno1.Tap <font color="#1F1F7F">(Amoeba, Badin, Bell Hop, Brains, City Bomber, Cluedo, Dobbel, Golf, Gomoku, Moon Patrol, Pengo, P&T-Battle;, Q-Bert, Shoot Out, Simon, Stock Car, Stowaway, Subhunt)</font><br>
+Wordpack.Tap <font color="#1F1F7F">(Ed64)</font><br>
+Poker.Dsk</td>
+</tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/demodisk.zip">DemoDisk.Zip</a><br>
+  <font color="#FFFFFF"><i>(14 may 98)</i></font></td>
+<td><font size="3" face="verdana, bangle, arial">DemoDisk.Dsk <font color="#1F1F7F">(Intro, Atomic Windows Demo, IconMaker, Minesweeper, Panic, Polecat, Space Zap, Rubik's cube, Painter, Boeing 747, Aman, Pattern, Contour, Surface, Rotation)</font></td>
+</tr>
+<tr>
+  <td valign="top"><font size="3" face="verdana, bangle, arial"><a href="download/source.zip">Source.Zip</a><br>
+  <font color="#FFFFFF"><i>(14 aug 99)</i></font></td>
+  <td><font size="3" face="verdana, bangle, arial">Atom.Pas<br>
+  FDC8271.Pas<br>
+  AtomTape.Pas<br>
+  AtomCom.Pas<br>
+  TapeCat.Pas<br>
+  TapeDir.Pas<br>
+  TapeDir.C</td>
+</tr>
+</table><br>
+<hr>
+<h2>Credits</h2>
+The software collection on this page and the state that the emulator is in at this moment could not have been possible without the following people:<br>
+<ul>
+<li><i>Leendert Bijnagte</i>, who sent me a lot of software and supported me with <font face="symbol">b</font>-testing. He is also the programmer of the new FP-ROM with 80x87 support.
+<li><i>Graham Fowler</i>.
+<li><i>Friso de Haan</i>.
+<li><i>Henk van der Heijden</i>, who gave me an Atom, a BBC and an Electron. Due to his encouraging comments, the Atom DOS is now supported in the emulator.
+<li><i>Menno Lauwerens</i>, who gave his own home-built Atom away to me (which really put my attention to implementing the parallel toolboxes at A000h). It's a beauty, with two disk drives, a self-made monitor and a transformer, bought from IBM for 25 cents per kilo. The disks contained quite a lot of software, including some nice programs by Menno himself, like Moon Patrol, Pengo...
+<li><i>Roland Leurs</i>, creater of the Atom-in-PC, who sent me "Gokkast", and who gave me lots of feedback.
+<li><i>Magnus Olsson</i>, who gave me feedback and came up with a lot of good ideas.
+<li><i>Steve Webster</i> (It took me some time, but the TapeCat utility has been born!)
+<li><i>Phil Mainwaring</i>, <i>Jens-Vagner Andersen</i> and everybody else, who came up with comments, questions, ideas etc. to help me fix bugs and expand the emulator.
+</ul>
+<hr>
+<h2>Links</h2>
+Website for Atom-in-PC by Roland Leurs at <a href="http://skyscraper.fortunecity.com/module/208">http://skyscraper.fortunecity.com/module/208</a>,<br>
+The anally retentives retro games home at <a href="http://www.arrgh.demon.co.uk/">http://www.arrgh.demon.co.uk/</a>
+<br><hr>
+<center>
+  <a href="_wouterras/index.html#atom">
+    <img src="_wouterras/pictures/backarrw.gif" border="0" width="36" height="29"><br>
+    Back to the main page
+  </a>
+</center>
+<hr>
+This page has been created on tuesday 11th november 1997,<br>
+Last update made on saturday 25th september 1999 by
+<a href="mailto:wouterras@hotmail.com"><i>Wouter Ras.</i></a>
+<center><font size="2">This is a free demo result from the Wayback Machine Downloader. <a href="http://www.waybackmachinedownloads.com">Click here</a> to download the full version.</font></center></body>
+</html>
